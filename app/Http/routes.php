@@ -21,4 +21,5 @@ Route::get('logout', 'Auth\AuthController@getLogout');
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('/home', 'DashboardController@index');
+	Route::resource('content', 'ContentController');
 });
