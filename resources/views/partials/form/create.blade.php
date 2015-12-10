@@ -18,7 +18,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Description <span class="required">*</span>
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Description
                                             </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <textarea type="text" id="description" name="description" class="form-control col-md-7 col-xs-12"></textarea>
@@ -27,7 +27,7 @@
                                         <div class="form-group">
                                             <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">File</label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input id="file" class="form-control col-md-7 col-xs-12" type="file" name="filename">
+                                                <input id="file" class="form-control col-md-7 col-xs-12" type="file" name="file">
                                             </div>
                                         </div>
                                         <div class="ln_solid"></div>

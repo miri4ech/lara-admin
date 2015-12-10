@@ -22,6 +22,7 @@
     <!-- Custom styling plus plugins -->
     <link href="{!! asset('assets/css/custom.css') !!}" rel="stylesheet">
     <link href="{!! asset('assets/css/icheck/flat/green.css') !!}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{!! asset('assets/css/sweetalert.css') !!}">
     @show
 
     <script src="{!! asset('assets/js/jquery.min.js') !!}"></script>
@@ -49,7 +50,7 @@
                 <div class="left_col scroll-view">
 
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="{{ url('/home') }}" class="site_title"><img src="{!! asset('assets/images/axon.png') !!}" alt="..." class="img-circle profile_img"></a>
+                        <a href="{{ url('/home') }}" class="site_title"><img src="{!! asset('assets/images/axon.png') !!}" alt="..." class="profile_img"></a>
                     </div>
                     <div class="clearfix"></div>
 
@@ -60,7 +61,7 @@
                         </div>
                         <div class="profile_info">
                             <span>Welcome,</span>
-                            <h2>{{ Auth::user()->name }}</h2>
+                            {{ Auth::user()->name }}
                         </div>
                     </div>
                     <!-- /menu prile quick info -->
@@ -68,8 +69,8 @@
                     <br />
 
                     <!-- sidebar menu -->
+                    <div class="clearfix"></div>
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-
                         <div class="menu_section">
                             <ul class="nav side-menu">
                                 <li><a href="{{ url('/home') }}"><i class="fa fa-home"></i> Dashboard</a>
@@ -91,7 +92,7 @@
                         <a data-toggle="tooltip" data-placement="top" title="Lock">
                             <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
                         </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Logout">
+                        <a data-toggle="tooltip" data-placement="top" title="Logout" href="{{ url('/logout') }}">
                             <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                         </a>
                     </div>
@@ -155,7 +156,8 @@
 
         @section('scripts')
         <script src="{!! asset('assets/js/bootstrap.min.js') !!}"></script>
-
+        <script src="{!! asset('assets/js/sweetalert.min.js') !!}"></script>
+        @include('partials.sweet-alert')
         <!-- chart js -->
         <script src="{!! asset('assets/js/chartjs/chart.min.js') !!}"></script>
         <!-- bootstrap progress js -->

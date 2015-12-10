@@ -14,42 +14,39 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="x_panel">
                                 <div class="x_title">
-                                    <h2>Contents<small>All</small></h2>
+                                    <h2>
+                                     Contents<small>All</small>
+                                    </h2>
+                                    <div class="pull-right">
+                                         <a href="{!! url('content/create') !!}" class="btn btn-primary"> <i class="fa fa-plus-square"></i> New</a>
+                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="x_content">
                                     <table id="example" class="table table-striped responsive-utilities jambo_table">
                                         <thead>
                                             <tr class="headings">
-                                                <th>
-                                                    <input type="checkbox" class="tableflat">
-                                                </th>
-                                                <th>Invoice </th>
-                                                <th>Invoice Date </th>
-                                                <th>Order </th>
-                                                <th>Bill to Name </th>
-                                                <th>Status </th>
-                                                <th>Amount </th>
-                                                <th class=" no-link last"><span class="nobr">Action</span>
-                                                </th>
+                                                <th>Catrgory </th>
+                                                <th>Title </th>
+                                                <th>Action </th>
                                             </tr>
                                         </thead>
 
                                         <tbody>
-                                            <tr class="even pointer">
-                                                <td class="a-center ">
-                                                    <input type="checkbox" class="tableflat">
-                                                </td>
-                                                <td class=" ">121000040</td>
-                                                <td class=" ">May 23, 2014 11:47:56 PM </td>
-                                                <td class=" ">121000210 <i class="success fa fa-long-arrow-up"></i>
-                                                </td>
-                                                <td class=" ">John Blank L</td>
-                                                <td class=" ">Paid</td>
-                                                <td class="a-right a-right ">$7.45</td>
-                                                <td class=" last"><a href="#">View</a>
-                                                </td>
-                                            </tr>
+                                            @foreach($contents as $content)
+                                                <tr class="even pointer">
+                                                    <td class=" ">{{ $content->category->category_name }}</td>
+                                                    <td class=" ">{{ $content->title }} </td>
+                                                    <td>
+                                                        <a class="btn btn-success">View</a>
+                                                        <form id="deleteContent" class="inline" method="post" action="{{ url('content/'.$content->content_id) }}">
+                                                            {{ csrf_field() }}
+                                                            {!! method_field('DELETE') !!}
+                                                            <button href="#" data-id="{{ $content->content_id }}" class="delete btn btn-danger">Delete</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
 
                                     </table>
@@ -118,6 +115,24 @@
                         this.className = "search_init";
                         this.value = asInitVals[$("tfoot input").index(this)];
                     }
+                });
+
+                $('.delete').click(function(event) {
+                    event.preventDefault();
+                    var form = $(this).parents('form');
+                    swal({
+                        title: "Are you sure?",
+                        text: "You will not be able to recover this content!",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Yes, delete it!",
+                        closeOnConfirm: false }
+                        , function(isConfirm){
+                           if(isConfirm){
+                            form.submit();
+                        }
+                       });
                 });
             });
         </script>
