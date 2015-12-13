@@ -36,7 +36,7 @@ class ContentController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(ContentRequest $request) {
-		if (\Request::hasFile('file')) {
+		if ($request->hasFile('file')) {
 			$fileName = $this->uploadFile();
 			$request->merge(['path' => $fileName]);
 		}
@@ -48,7 +48,7 @@ class ContentController extends Controller {
 	}
 
 	/**
-	 * Display the specified resource.
+	 * Display the specified content.
 	 *
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
@@ -58,7 +58,7 @@ class ContentController extends Controller {
 	}
 
 	/**
-	 * Show the form for editing the specified resource.
+	 * Show the form for editing the specified content.
 	 *
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
@@ -68,7 +68,7 @@ class ContentController extends Controller {
 	}
 
 	/**
-	 * Update the specified resource in storage.
+	 * Update the specified content in storage.
 	 *
 	 * @param  \Illuminate\Http\Request  $request
 	 * @param  int  $id
@@ -79,7 +79,7 @@ class ContentController extends Controller {
 	}
 
 	/**
-	 * Remove the specified resource from storage.
+	 * Remove the specified content from storage.
 	 *
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
@@ -93,14 +93,14 @@ class ContentController extends Controller {
 
 	/**
 	 * upload files
-	 * @return response
+	 * @return string
 	 */
 	private function uploadFile() {
-		if (\Request::hasFile('file')) {
-			$fileOriginalName = \Request::file('file')->getClientOriginalName(); // getting original filename
-			$extension = \Request::file('file')->getClientOriginalExtension(); // getting image extension
+		if (Request::hasFile('file')) {
+			$fileOriginalName = Request::file('file')->getClientOriginalName(); // getting original filename
+			$extension = Request::file('file')->getClientOriginalExtension(); // getting image extension
 			$fileName = time() . '-' . $fileOriginalName . $extension; // renameing image
-			\Request::file('file')->move($this->baseDir, $fileName); // uploading file to given path
+			Request::file('file')->move($this->baseDir, $fileName); // uploading file to given path
 
 			return $fileName;
 		}
