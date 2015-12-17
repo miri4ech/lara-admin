@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\AuthenticateUser;
+use App\AuthenticateUserListener;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Validator;
 
-class AuthController extends Controller {
+class AuthController extends Controller implements AuthenticateUserListener {
 	/*
 		    |--------------------------------------------------------------------------
 		    | Registration & Login Controller
@@ -61,5 +63,24 @@ class AuthController extends Controller {
 			'email' => $data['email'],
 			'password' => bcrypt($data['password']),
 		]);
+	}
+
+	/**
+	 * @param AuthenticateUser $authenticateUser
+	 * @param Request $request
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
+	public function socialLogin(AuthenticateUser $authenticateUser, Request $request, $provider) {
+		$hasCode = $request->has('code');
+		return $authenticateUser->execute($hasCode, $this, $provider);
+	}
+	/**
+	 * When a user has successfully been logged in...
+	 *
+	 * @param $user
+	 * @return \Illuminate\Routing\Redirector
+	 */
+	public function userHasLoggedIn($user) {
+		return redirect('/');
 	}
 }
